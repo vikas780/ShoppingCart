@@ -9,7 +9,7 @@ const Features = () => {
           Featured Products
         </h2>
       </div>
-      <div className='py-4 mx-auto  sm:max-w-full'>
+      <div className='p-4 mx-auto lg:max-w-[87rem] sm:max-w-full'>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 max-xl:gap-4 gap-6 '>
           <div className=' rounded-2xl p-5 cursor-pointer hover:-translate-y-2 transition-all relative bg-gray-100'>
             <div className='w-5/6 h-[210px] overflow-hidden mx-auto aspect-w-16 aspect-h-8 md:mb-2 mb-4'>

@@ -10,8 +10,8 @@ import Image from 'next/image'
 const Navbar = () => {
   const pathname = usePathname()
   return (
-    <header className='flex   px-4 pt-4 sm:px-10 bg-white  min-h-[70px] tracking-wide relative z-50 '>
-      <div className='flex flex-wrap items-center justify-between gap-4 w-full'>
+    <header className='flex   px-4  sm:pr-10 bg-white  min-h-[70px] tracking-wide relative z-50 '>
+      <div className='flex flex-wrap items-center justify-between gap-5 w-full'>
         <Link href='/'>
           <Image src={logo} width={180} height={80} alt='Logo' />
         </Link>
@@ -44,7 +44,7 @@ const Navbar = () => {
             <li className='mb-6 hidden max-lg:block'>
               <Link href='/'></Link>
             </li>
-            <li className='max-lg:border-b max-lg:py-3 px-3'>
+            <li className='max-lg:border-b max-lg:py-3 px-4'>
               <Link
                 href='/'
                 className={`${
@@ -54,7 +54,7 @@ const Navbar = () => {
                 Home
               </Link>
             </li>
-            <li className='max-lg:border-b max-lg:py-3 px-3'>
+            <li className='max-lg:border-b max-lg:py-3 px-4'>
               <Link
                 href='/products'
                 className={`${

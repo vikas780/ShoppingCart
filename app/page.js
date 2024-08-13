@@ -27,7 +27,7 @@ export default function Home() {
   }
   return (
     <>
-      <div className='max-w-[1400px] h-[480px] w-full m-auto py-8 px-2 relative group '>
+      <div className='max-w-[1400px] h-[480px] w-full m-auto py-8 px-4 relative group '>
         {/* <Image
         src={slides[currentIndex].url}
         alt='Carousel Slide'
