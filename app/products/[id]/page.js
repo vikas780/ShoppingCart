@@ -1,7 +1,21 @@
+'use client'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import SingleLoading from './loading'
 
 function SingleProduct() {
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false)
+    }, 800)
+  }, [])
+
+  if (loading) {
+    return <SingleLoading />
+  }
+
   return (
     <div className='p-2 lg:max-w-5xl max-w-lg mx-auto mt-20'>
       <div className='grid items-start grid-cols-1 lg:grid-cols-2 gap-6 max-lg:gap-12'>

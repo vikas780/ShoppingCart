@@ -14,13 +14,16 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang='en'>
+      {/* <head>
+        <link rel='icon' href='/favicon.ico' />
+      </head> */}
       <body className={inter.className}>
-        <main className='lg:max-w-[88rem] mx-auto'>
+        <main className='lg:max-w-[80rem] mx-auto'>
           <Navbar />
 
           {children}
 
-          <Footer />
+          {/* <Footer /> */}
         </main>
       </body>
     </html>

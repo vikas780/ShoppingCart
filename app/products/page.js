@@ -1,6 +1,20 @@
-import React from 'react'
+'use client'
+import React, { useEffect, useState } from 'react'
+import Shimmer from './loading'
 
 function Products() {
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false)
+    }, 800)
+  }, [])
+
+  if (loading) {
+    return <Shimmer />
+  }
+
   return (
     <div className='font-[sans-serif] '>
       <div className='p-4 mx-auto lg:max-w-[87rem] sm:max-w-full'>
