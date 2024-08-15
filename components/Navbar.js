@@ -121,7 +121,7 @@ const Navbar = () => {
                 pathname === '/cart' ? 'bg-blue-700 ' : 'bg-slate-700'
               } hover:bg-blue-700`}
             >
-              {NumItemsCart}
+              {NumItemsCart || 0}
             </span>
           </span>
 

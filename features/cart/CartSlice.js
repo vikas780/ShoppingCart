@@ -25,7 +25,10 @@ const defaultState = {
 
 const getCartFromLocalStorage = () => {
   if (typeof window !== 'undefined') {
-    return JSON.parse(localStorage.getItem('cart'))
+    const storedCart = JSON.parse(localStorage.getItem('cart'))
+    if (storedCart && storedCart.CartItems) {
+      return storedCart
+    }
   }
   return defaultState
 }
@@ -90,7 +93,11 @@ const CartSlice = createSlice({
     removeProduct: (state, action) => {
       const removeId = action.payload
       state.CartItems = state.CartItems.filter((item) => item.id !== removeId)
-      state.NumItemsCart -= 1
+      if (state.NumItemsCart > 1) {
+        state.NumItemsCart -= 1
+      } else {
+        state.NumItemsCart = 0
+      }
 
       toast.error('Product removed from cart')
 
