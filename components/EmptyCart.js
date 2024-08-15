@@ -8,14 +8,14 @@ const EmptyCart = () => {
       <div className='grid md:grid-cols-3 gap-4 mt-8'>
         <div className='md:col-span-2 space-y-4'>
           <div className='flex gap-4 bg-white px-4 py-28 rounded-md shadow-[0_2px_12px_-3px_rgba(6,81,237,0.3)]'>
-            <div class='mt-4 max-w-4xl mx-auto text-center'>
-              <h1 class='md:text-4xl text-3xl font-extrabold md:!leading-[75px]'>
+            <div className='mt-4 max-w-4xl mx-auto text-center'>
+              <h1 className='md:text-4xl text-3xl font-extrabold md:!leading-[75px]'>
                 Your Cart is empty
               </h1>
 
-              <div class='mt-2'>
+              <div className='mt-2'>
                 <Link href='/products'>
-                  <button class=' text-sm  font-semibold tracking-wide px-6 py-3 rounded-md text-white bg-gray-600 transition-all hover:bg-gray-800'>
+                  <button className=' text-sm  font-semibold tracking-wide px-6 py-3 rounded-md text-white bg-gray-600 transition-all hover:bg-gray-800'>
                     Fill IT
                   </button>
                 </Link>

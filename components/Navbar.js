@@ -6,14 +6,17 @@ import Link from 'next/link'
 import { links } from '@/utils/constants'
 import logo from '@/public/trend.svg'
 import Image from 'next/image'
+import { useSelector } from 'react-redux'
 
 const Navbar = () => {
+  const { NumItemsCart } = useSelector((state) => state.cart)
+
   const pathname = usePathname()
   return (
     <header className='flex   px-4 sm:pl-2  sm:pr-10 bg-white  min-h-[70px] tracking-wide relative z-50 '>
       <div className='flex flex-wrap items-center justify-between gap-5 w-full'>
         <Link href='/'>
-          <Image src={logo} width={180} height={80} alt='Logo' />
+          <Image src={logo} width={180} height={80} alt='Logo' priority />
         </Link>
 
         <div
@@ -118,7 +121,7 @@ const Navbar = () => {
                 pathname === '/cart' ? 'bg-blue-700 ' : 'bg-slate-700'
               } hover:bg-blue-700`}
             >
-              10
+              {NumItemsCart}
             </span>
           </span>
 

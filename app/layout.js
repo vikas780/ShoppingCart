@@ -2,6 +2,8 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import { ReduxProvider } from '@/ReduxProvider'
+import ToastProvider from '@/components/ToastContainer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,9 +21,13 @@ export default function RootLayout({ children }) {
       </head> */}
       <body className={inter.className}>
         <main className='lg:max-w-[80rem] mx-auto'>
-          <Navbar />
+          <ToastProvider>
+            <ReduxProvider>
+              <Navbar />
 
-          {children}
+              {children}
+            </ReduxProvider>
+          </ToastProvider>
 
           {/* <Footer /> */}
         </main>
