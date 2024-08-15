@@ -3,13 +3,19 @@ import Link from 'next/link'
 
 import React, { useEffect, useState } from 'react'
 import { FaCirclePlus, FaCircleMinus } from 'react-icons/fa6'
-import { RiDeleteBin6Line, RiDeleteBin6Fill } from 'react-icons/ri'
+import { RiDeleteBin6Fill } from 'react-icons/ri'
 import CartLading from './loading'
 import EmptyCart from '@/components/EmptyCart'
+import { clearCart, increase, decrease } from '@/features/cart/CartSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Cart = () => {
   const [loading, setLoading] = useState(true)
   const [cout, setCount] = useState(1)
+  const { ProductQuantity, CartTotal, NumItemsCart } = useSelector(
+    (state) => state.cart
+  )
+  const dispatch = useDispatch()
 
   useEffect(() => {
     setTimeout(() => {
@@ -59,8 +65,13 @@ const Cart = () => {
                       size={32}
                     />
                   </button>
-                  <span className='font-bold text-sm leading-[18px]'>2</span>
+                  <span className='font-bold text-sm leading-[18px]'>
+                    {ProductQuantity}
+                  </span>
                   <button
+                    onClick={() => {
+                      dispatch(increase(id))
+                    }}
                     type='button'
                     className='flex items-center justify-center w-5 h-5  outline-none rounded-full'
                   >

@@ -13,7 +13,7 @@ const Navbar = () => {
     <header className='flex   px-4 sm:pl-2  sm:pr-10 bg-white  min-h-[70px] tracking-wide relative z-50 '>
       <div className='flex flex-wrap items-center justify-between gap-5 w-full'>
         <Link href='/'>
-          <Image src={logo} width={180} height={80} alt='Logo' />
+          <Image src={logo} width={180} height={80} alt='Logo' priority />
         </Link>
 
         <div
