@@ -3,18 +3,20 @@ import React from 'react'
 import Image from 'next/image'
 import { InrCurrency } from './InrCurrency'
 import Link from 'next/link'
+import { addToCart } from '@/features/cart/CartSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
-function Products({ id, title, description, price, thumbnail }) {
-  const CartProduct = {
+function Products({ id, title, description, price, thumbnail, brand }) {
+  const { ProductQuantity } = useSelector((state) => state.cart)
+  const product = {
     id,
     title,
     price,
     thumbnail,
+    ProductQuantity,
+    brand,
   }
-
-  const AddToCart = () => {
-    console.log('Added to cart')
-  }
+  const dispatch = useDispatch()
 
   return (
     <div className=' rounded-2xl p-5  hover:-translate-y-2 transition-all relative bg-gray-100 '>
@@ -47,7 +49,12 @@ function Products({ id, title, description, price, thumbnail }) {
             {InrCurrency(price)}
           </h4>
           <Link href={'/cart'}>
-            <button className='text-white font-semibold bg-slate-700 p-2 rounded hover:bg-slate-900 '>
+            <button
+              onClick={() => {
+                dispatch(addToCart({ product }))
+              }}
+              className='text-white font-semibold bg-slate-700 p-2 rounded hover:bg-slate-900 '
+            >
               Add To Cart
             </button>
           </Link>

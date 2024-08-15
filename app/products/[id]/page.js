@@ -4,9 +4,13 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { InrCurrency } from '@/components/InrCurrency'
 import axios from 'axios'
+import { addToCart } from '@/features/cart/CartSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
 function SingleProduct({ params }) {
   const [singleProduct, setSingleProduct] = useState('')
+  const dispatch = useDispatch()
+  const { ProductQuantity } = useSelector((state) => state.cart)
 
   async function FetchSingleProduct(id) {
     const response = await axios(`https://dummyjson.com/products/${id}`)
@@ -16,7 +20,15 @@ function SingleProduct({ params }) {
     FetchSingleProduct(params.id)
   }, [])
 
-  const { title, description, price, thumbnail, sku, brand } = singleProduct
+  const { id, title, description, price, thumbnail, sku, brand } = singleProduct
+  const product = {
+    id,
+    title,
+    price,
+    thumbnail,
+    ProductQuantity,
+    brand,
+  }
 
   return (
     <div className='p-2 lg:max-w-5xl max-w-lg mx-auto mt-20'>
@@ -68,12 +80,16 @@ function SingleProduct({ params }) {
               <p className='tracking-wider'>{brand}</p>
             </div>
           </div>
-          <button
-            type='button'
-            className='w-full mt-8 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-md'
-          >
-            Add to cart
-          </button>
+          <Link href={'/cart'}>
+            <button
+              type='button'
+              onClick={() => dispatch(addToCart({ product }))}
+              className='w-full mt-8 px-6 py-3 bg-slate-700
+            hover:bg-slate-900 text-white text-sm font-semibold rounded-md'
+            >
+              Add to cart
+            </button>
+          </Link>
         </div>
       </div>
     </div>
