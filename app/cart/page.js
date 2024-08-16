@@ -1,19 +1,29 @@
 'use client'
 import Link from 'next/link'
 
-import React from 'react'
+import React, { Suspense, useEffect } from 'react'
 
 import EmptyCart from '@/components/EmptyCart'
-import { clearCart } from '@/features/cart/CartSlice'
+import { clearCart, loadCartFromLocalStorage } from '@/features/cart/CartSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import CartItemList from '@/components/CartItems'
 import { InrCurrency } from '@/components/InrCurrency'
 
+import CartLading from './loading'
+
 const Cart = () => {
-  const { CartItems, ProductQuantity, CartTotal, NumItemsCart } = useSelector(
+  const { CartItems, isLoaded, CartTotal, NumItemsCart } = useSelector(
     (state) => state.cart
   )
   const dispatch = useDispatch()
+
+  // useEffect(() => {
+  //   dispatch(loadCartFromLocalStorage())
+  // }, [dispatch])
+
+  if (!isLoaded) {
+    return <CartLading />
+  }
 
   if (CartItems.length === 0) {
     return <EmptyCart />
@@ -32,18 +42,26 @@ const Cart = () => {
         <div className='bg-white rounded-md px-4 py-6 h-max shadow-[0_2px_12px_-3px_rgba(6,81,237,0.3)]'>
           <ul className='text-gray-800 space-y-4'>
             <li className='flex flex-wrap gap-4 text-sm'>
-              Subtotal <span className='ml-auto font-bold'>$200.00</span>
+              Subtotal{' '}
+              <span className='ml-auto font-bold'>
+                {InrCurrency(CartTotal)}
+              </span>
             </li>
             <li className='flex flex-wrap gap-4 text-sm'>
               Shipping{' '}
               <span className='ml-auto font-bold'>
-                {CartItems.length < 2 ? InrCurrency(50) : InrCurrency(0)}
+                {CartItems.length < 3 ? InrCurrency(50) : InrCurrency(0)}
               </span>
             </li>
 
             <hr className='border-gray-300' />
             <li className='flex flex-wrap gap-4 text-sm font-bold'>
-              Total <span className='ml-auto'>{InrCurrency(CartTotal)}</span>
+              Total{' '}
+              <span className='ml-auto'>
+                {CartItems.length > 2
+                  ? InrCurrency(CartTotal)
+                  : InrCurrency(CartTotal + 50)}
+              </span>
             </li>
           </ul>
 

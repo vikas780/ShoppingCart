@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
+import { InrCurrency } from './InrCurrency'
 
 const EmptyCart = () => {
   return (
@@ -27,17 +28,17 @@ const EmptyCart = () => {
         <div className='bg-white rounded-md px-4 py-6 h-max shadow-[0_2px_12px_-3px_rgba(6,81,237,0.3)]'>
           <ul className='text-gray-800 space-y-4'>
             <li className='flex flex-wrap gap-4 text-sm'>
-              Subtotal <span className='ml-auto font-bold'>$0</span>
+              Subtotal{' '}
+              <span className='ml-auto font-bold'>{InrCurrency(0)}</span>
             </li>
             <li className='flex flex-wrap gap-4 text-sm'>
-              Shipping <span className='ml-auto font-bold'>$0</span>
+              Shipping{' '}
+              <span className='ml-auto font-bold'>{InrCurrency(0)}</span>
             </li>
-            <li className='flex flex-wrap gap-4 text-sm'>
-              Tax <span className='ml-auto font-bold'>$0</span>
-            </li>
+
             <hr className='border-gray-300' />
             <li className='flex flex-wrap gap-4 text-sm font-bold'>
-              Total <span className='ml-auto'>$0</span>
+              Total <span className='ml-auto'>{InrCurrency(0)}</span>
             </li>
           </ul>
 

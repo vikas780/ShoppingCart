@@ -77,6 +77,9 @@ const CartItemList = ({ id, title, price, thumbnail, brand }) => {
           </button>
         </div>
         <h3 className='text-base font-bold text-gray-800 mt-auto'>
+          {/* {item && item.ProductQuantity > 1
+            ? InrCurrency(price)
+            : InrCurrency(price)} */}
           {InrCurrency(price)}
         </h3>
       </div>

@@ -1,63 +1,40 @@
-'use client'
-
-import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs'
-import Link from 'next/link'
-import { useState } from 'react'
-import { slides } from '@/utils/HeroLinks'
-import Image from 'next/image'
 import Features from '@/components/Features'
+import Carousal from '@/components/Carousal'
+import axios from 'axios'
+import AllProducts from '@/components/AllProducts'
+import Link from 'next/link'
 
-export default function Home() {
-  const [currentIndex, setCurrentIndex] = useState(0)
+export default async function Home() {
+  const response = await axios(
+    'https://dummyjson.com/products/category/smartphones?limit=4&skip=2'
+  )
+  const data = response.data.products
 
-  const prevSlide = () => {
-    const isFirstSlide = currentIndex === 0
-    const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1
-    setCurrentIndex(newIndex)
-  }
-
-  const nextSlide = () => {
-    const isLastSlide = currentIndex === slides.length - 1
-    const newIndex = isLastSlide ? 0 : currentIndex + 1
-    setCurrentIndex(newIndex)
-  }
-
-  const goToSlide = (slideIndex) => {
-    setCurrentIndex(slideIndex)
-  }
   return (
     <>
-      <div className='max-w-[1400px] h-[480px] w-full m-auto py-8 px-4 relative group '>
-        {/* <Image
-        src={slides[currentIndex].url}
-        alt='Carousel Slide'
-        layout='fill'
-        objectFit='cover'
-        className='rounded-2xl'
-      /> */}
-        <div
-          style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
-          className='w-full h-full rounded-2xl bg-cover bg-center duration-500'
-        ></div>
-        {/* Left Arrow */}
-        <div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'>
-          <BsChevronCompactLeft onClick={prevSlide} size={30} />
+      <Carousal />
+      <div className='mt-7  mx-auto'>
+        <div className='mb-7 max-w-2xl text-center mx-auto'>
+          <h2 className='md:text-4xl text-3xl text-gray-700 font-bold '>
+            Featured Products
+          </h2>
         </div>
-        {/* Right Arrow */}
-        <div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'>
-          <BsChevronCompactRight onClick={nextSlide} size={30} />
+        <div className='p-4 mx-auto lg:max-w-[87rem] sm:max-w-full'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 max-xl:gap-4 gap-4 '>
+            {data.map((products) => {
+              return <AllProducts key={products.id} {...products} />
+            })}
+          </div>
         </div>
-        <div className='flex top-4 justify-center py-2'>
-          {slides.map((slide, slideIndex) => (
-            <div
-              key={slideIndex}
-              onClick={() => goToSlide(slideIndex)}
-              className='text-2xl cursor-pointer'
-            ></div>
-          ))}
+        <div className='max-w-2xl text-center mx-auto mt-10 pb-12'>
+          <Link
+            href='/products'
+            className='bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded '
+          >
+            All Products
+          </Link>
         </div>
       </div>
-      <Features />
     </>
   )
 }

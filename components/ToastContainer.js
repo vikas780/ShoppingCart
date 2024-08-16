@@ -10,7 +10,7 @@ export default function ToastProvider({ children }) {
   return (
     <>
       {children}
-      <ToastContainer transition={Slide} autoClose={550} />
+      <ToastContainer transition={Slide} autoClose={700} />
     </>
   )
 }

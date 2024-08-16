@@ -77,7 +77,7 @@ function SingleProduct({ params }) {
             </div>
             <div className='grid grid-cols-[repeat(2,minmax(20px,120px))]  mt-6 items-center'>
               <p className=' font-bold text-gray-600 text-base'>Brand:</p>
-              <p className='tracking-wider'>{brand}</p>
+              <p className='tracking-wider'>{brand || 'Unavailable'}</p>
             </div>
           </div>
           <Link href={'/cart'}>
