@@ -9,21 +9,22 @@ const defaultState = {
   CartTotal: 0,
   OrderTotal: 0,
   NumItemsCart: 0,
+  isLoaded: false,
 }
 
-const getCartFromLocalStorage = () => {
-  if (typeof window !== 'undefined') {
-    const storedCart = JSON.parse(localStorage.getItem('cart'))
-    if (storedCart && storedCart.CartItems) {
-      return storedCart
-    }
-  }
-  return defaultState
-}
+// const getCartFromLocalStorage = () => {
+//   if (typeof window !== 'undefined') {
+//     const storedCart = JSON.parse(localStorage.getItem('cart'))
+//     if (storedCart && storedCart.CartItems) {
+//       return storedCart
+//     }
+//   }
+//   return defaultState
+// }
 
 const CartSlice = createSlice({
   name: 'cart',
-  initialState: getCartFromLocalStorage(),
+  initialState: defaultState,
 
   reducers: {
     clearCart: (state) => {
@@ -140,6 +141,15 @@ const CartSlice = createSlice({
       })
       localStorage.setItem('cart', JSON.stringify(state))
     },
+    loadCartFromLocalStorage: (state) => {
+      if (typeof window !== 'undefined') {
+        const storedCart = JSON.parse(localStorage.getItem('cart'))
+        if (storedCart && storedCart.CartItems) {
+          return { ...storedCart, isLoaded: true }
+        }
+      }
+      return { ...state, isLoaded: true }
+    },
   },
 })
 
@@ -150,5 +160,6 @@ export const {
   addToCart,
   removeProduct,
   removeOnDecrease,
+  loadCartFromLocalStorage,
 } = CartSlice.actions
 export default CartSlice.reducer

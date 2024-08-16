@@ -1,21 +1,29 @@
 'use client'
 import Link from 'next/link'
 
-import React from 'react'
+import React, { Suspense, useEffect } from 'react'
 
 import EmptyCart from '@/components/EmptyCart'
-import { clearCart } from '@/features/cart/CartSlice'
+import { clearCart, loadCartFromLocalStorage } from '@/features/cart/CartSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import CartItemList from '@/components/CartItems'
 import { InrCurrency } from '@/components/InrCurrency'
-import { lazy } from 'react'
-const LazyLoadCart = lazy(() => import('@/components/CartItems'))
+
+import CartLading from './loading'
 
 const Cart = () => {
-  const { CartItems, ProductQuantity, CartTotal, NumItemsCart } = useSelector(
+  const { CartItems, isLoaded, CartTotal, NumItemsCart } = useSelector(
     (state) => state.cart
   )
   const dispatch = useDispatch()
+
+  // useEffect(() => {
+  //   dispatch(loadCartFromLocalStorage())
+  // }, [dispatch])
+
+  if (!isLoaded) {
+    return <CartLading />
+  }
 
   if (CartItems.length === 0) {
     return <EmptyCart />
@@ -27,7 +35,7 @@ const Cart = () => {
       <div className='grid md:grid-cols-3 gap-4 mt-8'>
         <div className='md:col-span-2 space-y-4'>
           {CartItems.map((item) => {
-            return <LazyLoadCart key={item.id} {...item} />
+            return <CartItemList key={item.id} {...item} />
           })}
         </div>
 

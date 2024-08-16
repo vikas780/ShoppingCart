@@ -5,9 +5,7 @@ const loading = () => {
   return (
     <>
       <div className='max-w-[1400px] h-[480px] w-full m-auto py-8 px-4 relative group'>
-        {/* Shimmer Background */}
         <div className='w-full h-full rounded-2xl bg-gray-300 animate-pulse'></div>
-        {/* Left Arrow */}
       </div>
       <div className='p-4 mx-auto lg:max-w-[87rem] sm:max-w-full'>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-xl:gap-4 gap-6 mt-12'>
