@@ -1,20 +1,28 @@
 'use client'
 import Link from 'next/link'
-
-import React, { Suspense, useEffect } from 'react'
-
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import EmptyCart from '@/components/EmptyCart'
 import { clearCart, loadCartFromLocalStorage } from '@/features/cart/CartSlice'
-import { useDispatch, useSelector } from 'react-redux'
 import CartItemList from '@/components/CartItems'
 import { InrCurrency } from '@/components/InrCurrency'
-
 import CartLading from './loading'
 
 const Cart = () => {
-  const { CartItems, isLoaded, CartTotal, NumItemsCart } = useSelector(
-    (state) => state.cart
-  )
+  const { CartItems, isLoaded, CartTotal } = useSelector((state) => state.cart)
+
+  // Calculate 10% discount on the total cart amount
+  const discount = CartTotal * 0.1
+  const totalAfterDiscount = CartTotal - discount
+
+  // Determine shipping charges based on the number of items
+  const shippingCharges = CartItems.length < 3 ? 50 : 0
+  const totalWithShipping = totalAfterDiscount + shippingCharges
+
+  // Fixed discount of 50rs
+  const fixedDiscount = CartTotal > 100 ? 50 : 0
+  const finalOrderprice = totalWithShipping - fixedDiscount
+
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -29,38 +37,55 @@ const Cart = () => {
   }
 
   return (
-    <div className='font-sans max-w-7xl max-md:max-w-[45rem] mx-auto p-4 '>
+    <div className='font-sans max-w-7xl max-md:max-w-[45rem] mx-auto p-4'>
       <h1 className='text-2xl font-extrabold text-gray-800'>Your Cart</h1>
       <div className='grid md:grid-cols-3 gap-4 mt-8'>
         <div className='md:col-span-2 space-y-4'>
-          {CartItems.map((item) => {
-            return <CartItemList key={item.id} {...item} />
-          })}
+          {CartItems.map((item) => (
+            <CartItemList key={item.id} {...item} />
+          ))}
         </div>
 
         <div className='bg-white rounded-md px-4 py-6 h-max shadow-[0_2px_12px_-3px_rgba(6,81,237,0.3)]'>
           <ul className='text-gray-800 space-y-4'>
-            <li className='flex flex-wrap gap-4 text-sm'>
+            <li className='flex flex-wrap gap-4 text-sm '>
               Subtotal{' '}
-              <span className='ml-auto font-bold'>
-                {InrCurrency(CartTotal)}
+              <span className='ml-auto font-bold text-green-600'>
+                +{InrCurrency(CartTotal)}
+              </span>
+            </li>
+
+            <li className='flex flex-wrap gap-4 text-sm'>
+              Shipping Charges
+              <span className='ml-auto font-bold text-green-600'>
+                {shippingCharges === 50 ? (
+                  <p>+{InrCurrency(shippingCharges)}</p>
+                ) : (
+                  <p>Free</p>
+                )}
               </span>
             </li>
             <li className='flex flex-wrap gap-4 text-sm'>
-              Shipping{' '}
-              <span className='ml-auto font-bold'>
-                {CartItems.length < 3 ? InrCurrency(50) : InrCurrency(0)}
+              Discount (10%)
+              <span className='ml-auto font-bold text-red-500'>
+                -{InrCurrency(discount)}
+              </span>
+            </li>
+            <li className='flex flex-wrap gap-4 text-sm'>
+              Fixed Discount
+              <span className='ml-auto font-bold text-red-500'>
+                {fixedDiscount === 50 ? (
+                  <p>-{InrCurrency(fixedDiscount)}</p>
+                ) : (
+                  <p>For Discount total must be over {InrCurrency(100)}</p>
+                )}
               </span>
             </li>
 
             <hr className='border-gray-300' />
             <li className='flex flex-wrap gap-4 text-sm font-bold'>
               Total{' '}
-              <span className='ml-auto'>
-                {CartItems.length > 2
-                  ? InrCurrency(CartTotal)
-                  : InrCurrency(CartTotal + 50)}
-              </span>
+              <span className='ml-auto'>{InrCurrency(finalOrderprice)}</span>
             </li>
           </ul>
 
