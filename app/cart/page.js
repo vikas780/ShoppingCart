@@ -21,12 +21,11 @@ const Cart = () => {
     dispatch(loadCartFromLocalStorage())
   }, [dispatch])
 
-  if (!isLoaded) {
-    return <CartLading />
-  }
-
   if (CartItems.length === 0) {
     return <EmptyCart />
+  }
+  if (!isLoaded) {
+    return <CartLading />
   }
 
   return (

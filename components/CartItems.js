@@ -30,7 +30,7 @@ const CartItemList = ({ id, title, price, thumbnail, brand }) => {
 
         <div className='flex flex-col gap-4'>
           <div>
-            <h3 className='text-base font-bold text-gray-800'>
+            <h3 className='text-base  font-bold text-gray-800 '>
               <Link href={`/products/${id}`}>{title}</Link>
             </h3>
             <p className='text-sm font-semibold text-gray-500 mt-2 flex items-center gap-2'>
@@ -40,31 +40,10 @@ const CartItemList = ({ id, title, price, thumbnail, brand }) => {
 
           <div className='mt-auto flex items-center gap-3'>
             <button
-              onClick={() => {
-                dispatch(decrease(id))
-              }}
-              type='button'
-              className='flex items-center justify-center w-5 h-5 outline-none rounded-full'
+              onClick={() => dispatch(removeProduct(id))}
+              className=' text-sm  font-semibold  px-3 py-2 rounded-md text-white bg-red-500 hover:bg-red-700 transition-all '
             >
-              <FaCircleMinus
-                className='text-gray-400 hover:text-gray-800 transition-colors duration-300'
-                size={32}
-              />
-            </button>
-            <span className='font-bold text-sm leading-[18px]'>
-              {item ? item.ProductQuantity : 1}
-            </span>
-            <button
-              onClick={() => {
-                dispatch(increase(id))
-              }}
-              type='button'
-              className='flex items-center justify-center w-5 h-5  outline-none rounded-full'
-            >
-              <FaCirclePlus
-                className='text-gray-400 hover:text-gray-800 transition-colors duration-300'
-                size={32}
-              />
+              Remove Item
             </button>
           </div>
         </div>
@@ -72,16 +51,39 @@ const CartItemList = ({ id, title, price, thumbnail, brand }) => {
 
       <div className='ml-auto flex flex-col'>
         <div className='flex items-start gap-4 justify-end'>
-          <button onClick={() => dispatch(removeProduct(id))}>
-            <RiDeleteBin6Fill className='text-gray-600 hover:text-red-600 transition-colors duration-300' />
+          <h3 className='text-base font-bold text-gray-800 mt-auto'>
+            {InrCurrency(price)}
+          </h3>
+        </div>
+        <div className='mt-auto flex items-center mb-2 gap-1 '>
+          <button
+            onClick={() => {
+              dispatch(decrease(id))
+            }}
+            type='button'
+            className='flex items-center justify-center w-5 h-5 outline-none rounded-full'
+          >
+            <FaCircleMinus
+              className='text-gray-400 hover:text-gray-800 transition-colors duration-300'
+              size={32}
+            />
+          </button>
+          <span className='font-bold text-sm leading-[18px]'>
+            {item ? item.ProductQuantity : 1}
+          </span>
+          <button
+            onClick={() => {
+              dispatch(increase(id))
+            }}
+            type='button'
+            className='flex items-center justify-center w-5 h-5  outline-none rounded-full'
+          >
+            <FaCirclePlus
+              className='text-gray-400 hover:text-gray-800 transition-colors duration-300'
+              size={32}
+            />
           </button>
         </div>
-        <h3 className='text-base font-bold text-gray-800 mt-auto'>
-          {/* {item && item.ProductQuantity > 1
-            ? InrCurrency(price)
-            : InrCurrency(price)} */}
-          {InrCurrency(price)}
-        </h3>
       </div>
     </div>
   )
