@@ -9,18 +9,31 @@ import { useDispatch, useSelector } from 'react-redux'
 
 function SingleProduct({ params }) {
   const [singleProduct, setSingleProduct] = useState('')
+
+  const [errorMessage, setErrorMessage] = useState('')
   const dispatch = useDispatch()
   const { ProductQuantity } = useSelector((state) => state.cart)
 
   async function FetchSingleProduct(id) {
-    const response = await axios(`https://dummyjson.com/products/${id}`)
-    setSingleProduct(response.data)
+    let error = null
+    try {
+      const response = await axios(`https://dummyjson.com/products/${id}`)
+      setSingleProduct(response.data)
+    } catch (err) {
+      // Handle the error and set a user-friendly error message
+
+      error =
+        'Failed to load products. Please check your internet connection or try again later.'
+      setErrorMessage(error)
+    }
   }
   useEffect(() => {
     FetchSingleProduct(params.id)
   }, [])
 
   const { id, title, description, price, thumbnail, sku, brand } = singleProduct
+
+  //Storing required information of product, It will we sent to AddToCart reducer
   const product = {
     id,
     title,
@@ -30,6 +43,10 @@ function SingleProduct({ params }) {
     brand,
   }
 
+  //If error exist then show error
+  if (errorMessage !== '') {
+    return <h3 className='text-center text-red-600 text-lg'>{errorMessage}</h3>
+  }
   return (
     <div className='p-2 lg:max-w-5xl max-w-lg mx-auto mt-20'>
       <div className='grid items-start grid-cols-1 lg:grid-cols-2 gap-6 max-lg:gap-12'>

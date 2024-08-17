@@ -6,10 +6,12 @@ import '@/app/globals.css'
 import { ToastContainer } from 'react-toastify'
 import { Slide } from 'react-toastify'
 
+//Toast configuration
 export default function ToastProvider({ children }) {
   return (
     <>
       {children}
+
       <ToastContainer transition={Slide} autoClose={700} />
     </>
   )

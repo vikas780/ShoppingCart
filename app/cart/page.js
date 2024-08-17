@@ -9,6 +9,7 @@ import { InrCurrency } from '@/components/InrCurrency'
 import CartLading from './loading'
 
 const Cart = () => {
+  // Fetching defaultState variables from CartSlice
   const { CartItems, isLoaded, CartTotal } = useSelector((state) => state.cart)
 
   // Calculate 10% discount on the total cart amount
@@ -25,6 +26,7 @@ const Cart = () => {
 
   const dispatch = useDispatch()
 
+  // To prevent hyderation cause due to data present in local storage
   useEffect(() => {
     dispatch(loadCartFromLocalStorage())
   }, [dispatch])
@@ -114,24 +116,6 @@ const Cart = () => {
               Clear cart
             </button>
           </div>
-
-          {/* <div className='mt-4 flex flex-wrap justify-center gap-4'>
-            <img
-              src='https://readymadeui.com/images/master.webp'
-              alt='card1'
-              className='w-10 object-contain'
-            />
-            <img
-              src='https://readymadeui.com/images/visa.webp'
-              alt='card2'
-              className='w-10 object-contain'
-            />
-            <img
-              src='https://readymadeui.com/images/american-express.webp'
-              alt='card3'
-              className='w-10 object-contain'
-            />
-          </div> */}
         </div>
       </div>
     </div>

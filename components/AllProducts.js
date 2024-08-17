@@ -6,8 +6,11 @@ import Link from 'next/link'
 import { addToCart } from '@/features/cart/CartSlice'
 import { useDispatch, useSelector } from 'react-redux'
 
+//Destructuring required data
 function Products({ id, title, description, price, thumbnail, brand }) {
   const { ProductQuantity } = useSelector((state) => state.cart)
+
+  //Storing required information of product, It will we sent to AddToCart reducer
   const product = {
     id,
     title,

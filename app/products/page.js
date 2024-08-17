@@ -1,7 +1,5 @@
-import AllProducts from '@/components/AllProducts'
 import axios from 'axios'
 import Shimmer from './loading'
-import SearchBar from '@/components/SearchBar'
 
 import ProductContainer from '@/components/ProductContainer'
 

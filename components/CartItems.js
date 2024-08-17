@@ -7,6 +7,7 @@ import { InrCurrency } from './InrCurrency'
 import Image from 'next/image'
 
 const CartItemList = ({ id, title, price, thumbnail, brand }) => {
+  //Fetching CartItems from CartSlice. It contains all cart items sent by user to cart
   const { CartItems } = useSelector((state) => state.cart)
   const item = CartItems.find((item) => item.id === id)
   const dispatch = useDispatch()
@@ -22,7 +23,7 @@ const CartItemList = ({ id, title, price, thumbnail, brand }) => {
                 alt={title}
                 fill
                 sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-                style={{ objectFit: 'contain' }} // Equivalent to `object-contain` in CSS
+                style={{ objectFit: 'contain' }}
               />
             </div>
           </Link>

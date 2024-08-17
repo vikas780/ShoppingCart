@@ -1,8 +1,9 @@
 import React from 'react'
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = ({ OnSearch }) => {
+  // set search input value to onsearch
   const handelInput = (e) => {
-    onSearch(e.target.value)
+    OnSearch(e.target.value)
   }
 
   return (
@@ -18,7 +19,7 @@ const SearchBar = ({ onSearch }) => {
         </svg>
         <input
           type='text'
-          placeholder='Search Something...'
+          placeholder='Search for product...'
           onChange={handelInput}
           className='w-full outline-none bg-transparent text-gray-600 text-sm'
         />

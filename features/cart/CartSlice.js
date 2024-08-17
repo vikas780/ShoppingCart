@@ -11,16 +11,6 @@ const defaultState = {
   isLoaded: false,
 }
 
-// const getCartFromLocalStorage = () => {
-//   if (typeof window !== 'undefined') {
-//     const storedCart = JSON.parse(localStorage.getItem('cart'))
-//     if (storedCart && storedCart.CartItems) {
-//       return storedCart
-//     }
-//   }
-//   return defaultState
-// }
-
 const CartSlice = createSlice({
   name: 'cart',
   initialState: defaultState,
@@ -43,8 +33,11 @@ const CartSlice = createSlice({
       if (!isItemPresent) {
         state.NumItemsCart += 1
 
+        // This below calculation is done because when we see the e-commerce website there are few products that have very low price so for that products the minimum quantity is more than other products so i set 5 as the minimum quantity
         const initialQuantity = product.price < 2 ? 5 : 1
         const initialPrice = product.price * initialQuantity
+
+        // below we need to push price because when product qantity changes we need it
 
         state.CartItems.push({
           ...product,
@@ -58,7 +51,6 @@ const CartSlice = createSlice({
         toast.error('Item already added to cart')
         return
       }
-      // }
 
       CartSlice.caseReducers.totalPrice(state) // Calculate the total price
       localStorage.setItem('cart', JSON.stringify(state))
@@ -85,11 +77,12 @@ const CartSlice = createSlice({
 
       if (singleItem) {
         if (singleItem.ProductQuantity === 5) {
+          // for those products whose price is very low. I took 2rs as low price
           CartSlice.caseReducers.removeOnDecrease(state, { payload: decId })
           toast.error(` ${singleItem.title} Quantity can't be less than 5`)
         } else if (singleItem.ProductQuantity > 1) {
           singleItem.ProductQuantity -= 1
-          singleItem.price -= singleItem.originalPrice
+          singleItem.price -= singleItem.originalPrice // Reduce price on quantity decrease
           toast.success(`${singleItem.title} quantity decreased`)
           CartSlice.caseReducers.totalPrice(state)
           localStorage.setItem('cart', JSON.stringify(state))
@@ -140,6 +133,7 @@ const CartSlice = createSlice({
       })
       localStorage.setItem('cart', JSON.stringify(state))
     },
+    // to access data from localStorage
     loadCartFromLocalStorage: (state) => {
       if (typeof window !== 'undefined') {
         const storedCart = JSON.parse(localStorage.getItem('cart'))

@@ -1,4 +1,3 @@
-import Features from '@/components/Features'
 import Carousal from '@/components/Carousal'
 import axios from 'axios'
 import AllProducts from '@/components/AllProducts'
@@ -10,7 +9,7 @@ export default async function Home() {
 
   try {
     const response = await axios(
-      'https://dummyjson.com/products/category/smartphones?limit=4&skip=2'
+      'https://dummyjson.com/products/category/smartphones?limit=4&skip=3'
     )
     data = response.data.products
   } catch (err) {
@@ -32,9 +31,12 @@ export default async function Home() {
         ) : (
           <div className='p-4 mx-auto lg:max-w-[87rem] sm:max-w-full'>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 max-xl:gap-4 gap-4'>
-              {data.map((product) => (
-                <AllProducts key={product.id} {...product} />
-              ))}
+              {
+                //Utilize AllProducts component to make featured products
+                data.map((product) => (
+                  <AllProducts key={product.id} {...product} />
+                ))
+              }
             </div>
           </div>
         )}

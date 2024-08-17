@@ -22,7 +22,7 @@ export default function Carousal() {
 
   return (
     <div className='relative max-w-[1400px] mx-auto py-8 px-4 sm:px-2 md:px-4 group'>
-      <div className='w-full h-[480px] rounded-2xl bg-gray-300 relative'>
+      <div className='w-full h-[480px] rounded-2xl bg-gray-300 relative '>
         <Image
           src={slides[currentIndex].url}
           alt={`Slide ${currentIndex}`}

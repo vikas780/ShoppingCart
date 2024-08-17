@@ -10,15 +10,21 @@ import { useDispatch, useSelector } from 'react-redux'
 import { loadCartFromLocalStorage } from '@/features/cart/CartSlice'
 
 const Navbar = () => {
+  // Fetch number of item in user cart
   const { NumItemsCart } = useSelector((state) => state.cart)
   const [toggle, setToggle] = useState(false)
 
+  //For small screen navigation
   const handelToggle = () => {
     setToggle(!toggle)
   }
 
   const dispatch = useDispatch()
+
+  //To get current path such that we can change our Link color when it is active
   const pathname = usePathname()
+
+  // To prevent hyderation cause due to data present in local storage
   useEffect(() => {
     dispatch(loadCartFromLocalStorage())
   }, [dispatch])
@@ -82,18 +88,6 @@ const Navbar = () => {
                 Products
               </Link>
             </li>
-            {/* <li className='max-lg:border-b max-lg:py-3 px-3'>
-              <Link
-                href='/cart'
-                className={`${
-                  pathname === '/cart'
-                    ? 'text-blue-700 font-bold'
-                    : 'text-gray-600'
-                } hover:text-blue-700`}
-              >
-                Cart
-              </Link>
-            </li> */}
           </ul>
         </div>
 
