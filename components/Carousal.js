@@ -21,7 +21,7 @@ export default function Carousal() {
   }
 
   return (
-    <div className='relative max-w-[1400px] mx-auto py-8 px-4 sm:px-2 md:px-4 '>
+    <div className='relative max-w-[1400px] mx-auto py-8 px-4 sm:px-2 md:px-4 group'>
       <div className='w-full h-[480px] rounded-2xl bg-gray-300 relative'>
         <Image
           src={slides[currentIndex].url}
@@ -30,11 +30,11 @@ export default function Carousal() {
           className='w-full h-full rounded-2xl object-cover'
         />
         {/* Left Arrow */}
-        <div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'>
+        <div className='absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity'>
           <BsChevronCompactLeft onClick={prevSlide} size={30} />
         </div>
         {/* Right Arrow */}
-        <div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'>
+        <div className='absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity'>
           <BsChevronCompactRight onClick={nextSlide} size={30} />
         </div>
       </div>
