@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { toast } from 'react-toastify'
 
 const { createSlice } = require('@reduxjs/toolkit')
