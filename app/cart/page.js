@@ -17,9 +17,9 @@ const Cart = () => {
   )
   const dispatch = useDispatch()
 
-  // useEffect(() => {
-  //   dispatch(loadCartFromLocalStorage())
-  // }, [dispatch])
+  useEffect(() => {
+    dispatch(loadCartFromLocalStorage())
+  }, [dispatch])
 
   if (!isLoaded) {
     return <CartLading />

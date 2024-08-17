@@ -1,6 +1,6 @@
 'use client'
 import { usePathname } from 'next/navigation'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import '@/app/globals.css'
 import Link from 'next/link'
 import { links } from '@/utils/constants'
@@ -11,6 +11,11 @@ import { loadCartFromLocalStorage } from '@/features/cart/CartSlice'
 
 const Navbar = () => {
   const { NumItemsCart } = useSelector((state) => state.cart)
+  const [toggle, setToggle] = useState(false)
+
+  const handelToggle = () => {
+    setToggle(!toggle)
+  }
 
   const dispatch = useDispatch()
   const pathname = usePathname()
@@ -26,10 +31,13 @@ const Navbar = () => {
 
         <div
           id='collapseMenu'
-          className='max-lg:hidden lg:!block max-lg:before:fixed max-lg:before:bg-black max-lg:before:opacity-50 max-lg:before:inset-0 max-lg:before:z-50'
+          className={`${
+            toggle ? 'block' : 'hidden'
+          } lg:!block max-lg:before:fixed max-lg:before:bg-black max-lg:before:opacity-50 max-lg:before:inset-0 max-lg:before:z-50`}
         >
           <button
             id='toggleClose'
+            onClick={handelToggle}
             className='lg:hidden fixed top-2 right-4 z-[100] rounded-full bg-white p-3'
           >
             <svg
@@ -130,7 +138,11 @@ const Navbar = () => {
             </span>
           </span>
 
-          <button id='toggleOpen' className='lg:hidden !ml-7'>
+          <button
+            id='toggleOpen'
+            className='lg:hidden !ml-7'
+            onClick={handelToggle}
+          >
             <svg
               className='w-7 h-7'
               fill='#000'
